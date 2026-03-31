@@ -1103,8 +1103,11 @@ body.light {
 
 /* ═══════════════════ RESPONSIVE ═══════════════════ */
 @media (max-width: 768px) {
+    html {
+        height: 100dvh;
+    }
     body {
-        height: 100vh;
+        height: 100dvh;
         overflow: hidden;
     }
     :root {
@@ -1115,6 +1118,7 @@ body.light {
     .app {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr var(--bar-h);
+        height: 100dvh;
     }
 
     /* Sidebar = fixed slide-in drawer */
