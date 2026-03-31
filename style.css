@@ -1105,6 +1105,7 @@ body.light {
 @media (max-width: 768px) {
     body {
         overflow: auto;
+        max-height: 100vh;
     }
     :root {
         --sidebar-w: 280px;
