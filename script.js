@@ -490,5 +490,45 @@ if ("serviceWorker" in navigator) {
   });
 }
 
+// Install App Prompt
+// let deferredPrompt;
 
+// window.addEventListener("beforeinstallprompt", (e) => {
+//   e.preventDefault();
+//   deferredPrompt = e;
 
+//   // Create install button dynamically
+//   let installBtn = document.createElement("button");
+//   installBtn.innerText = "Install App";
+//   installBtn.style.position = "fixed";
+//   installBtn.style.bottom = "20px";
+//   installBtn.style.right = "20px";
+//   installBtn.style.padding = "10px 15px";
+//   installBtn.style.background = "#000";
+//   installBtn.style.color = "#fff";
+//   installBtn.style.border = "none";
+//   installBtn.style.borderRadius = "8px";
+//   installBtn.style.cursor = "pointer";
+//   installBtn.style.zIndex = "9999";
+
+//   document.body.appendChild(installBtn);
+
+//   installBtn.addEventListener("click", () => {
+//     installBtn.remove();
+//     deferredPrompt.prompt();
+
+//     deferredPrompt.userChoice.then((choiceResult) => {
+//       if (choiceResult.outcome === "accepted") {
+//         console.log("User installed the app");
+//       } else {
+//         console.log("User dismissed install");
+//       }
+//       deferredPrompt = null;
+//     });
+//   });
+// });
+
+// // Detect if already installed
+// window.addEventListener("appinstalled", () => {
+//   console.log("PWA was installed");
+// });
