@@ -1104,8 +1104,8 @@ body.light {
 /* ═══════════════════ RESPONSIVE ═══════════════════ */
 @media (max-width: 768px) {
     body {
-        overflow: auto;
-        max-height: 80vh;
+        height: 100vh;
+        overflow: hidden;
     }
     :root {
         --sidebar-w: 280px;
