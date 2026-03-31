@@ -513,22 +513,3 @@ window.addEventListener("beforeinstallprompt", (e) => {
 
   document.body.appendChild(installBtn);
 
-  installBtn.addEventListener("click", () => {
-    installBtn.remove();
-    deferredPrompt.prompt();
-
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === "accepted") {
-        console.log("User installed the app");
-      } else {
-        console.log("User dismissed install");
-      }
-      deferredPrompt = null;
-    });
-  });
-});
-
-// Detect if already installed
-window.addEventListener("appinstalled", () => {
-  console.log("PWA was installed");
-});
