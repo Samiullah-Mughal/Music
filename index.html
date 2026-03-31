@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samiullah's Player</title>
+<link rel="shortcut icon" href="./icons/fav-ico.png" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div id="importToast"></div>
+
+<div class="app">
+
+  <!-- ═══════ SIDEBAR ═══════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">Samiullah's Player<span>.</span></div>
+      <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+    </div>
+    <div class="search-wrap">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search songs, artists…">
+      </div>
+    </div>
+    <div class="playlist-section">
+      <div class="section-label">Import Music</div>
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept="audio/*" multiple>
+        <div class="upload-icon">📂</div>
+        <div class="upload-label">Drop files or tap to import</div>
+        <div class="upload-hint">MP3 · WAV · FLAC · OGG · AAC</div>
+      </div>
+      <div class="section-label" style="margin-top:6px">Library</div>
+      <div id="libraryList"></div>
+      <div class="section-label" style="margin-top:4px">Recently Played</div>
+      <div id="recentSidebar"></div>
+    </div>
+  </aside>
+
+  <!-- ═══════ MAIN ═══════ -->
+  <main class="main">
+    <div class="main-header">
+      <div class="main-header-left">
+        <div class="hamburger" id="hamburger" onclick="toggleSidebar()">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="queue-title" id="queueTitle">My Library</div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" title="Toggle theme"><img src="icons/dark.png" alt="Dark Mode" class="icon-img"></button>
+        <button class="icon-btn" id="recentBtn" title="Recently Played"><img src="icons/history.png" alt="History" class="icon-img"></button>
+      </div>
+    </div>
+
+    <div class="now-playing-hero">
+      <div class="album-art" id="heroArt"><span id="heroEmoji">🎵</span></div>
+      <div class="hero-info">
+        <div class="hero-tag">NOW PLAYING</div>
+        <div class="hero-title" id="heroTitle">No song loaded</div>
+        <div class="hero-artist" id="heroArtist">Import music to begin</div>
+        <div class="hero-tags"><div class="tag-chip" id="heroFormat">WAVE PLAYER</div></div>
+      </div>
+    </div>
+
+    <div class="visualizer-wrap">
+      <canvas id="visualizer"></canvas>
+    </div>
+
+    <div class="song-list-wrap" id="songListWrap">
+      <div class="song-list-header" id="songListHeader" style="display:none">
+        <div class="col-label" style="text-align:center">#</div>
+        <div class="col-label">TITLE</div>
+        <div class="col-label" style="text-align:right">TIME</div>
+      </div>
+      <div id="songList"></div>
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">🎧</div>
+        <div class="empty-title">Your library is empty</div>
+        <div class="empty-sub">Import local audio files — MP3, WAV, FLAC, OGG and more. Files are saved in your browser so they persist across sessions.</div>
+        <button class="empty-upload-btn">
+          <input type="file" id="emptyFileInput" accept="audio/*" multiple>
+          ＋ Import Songs
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ═══════ CONTROL BAR ═══════ -->
+  <footer class="control-bar">
+    <div class="bar-info">
+      <div class="bar-art" id="barArt"><span id="barEmoji">🎵</span></div>
+      <div class="bar-meta">
+        <div class="bar-song" id="barSong">No song selected</div>
+        <div class="bar-artist" id="barArtist">—</div>
+      </div>
+      <button class="bar-heart" id="heartBtn">♡</button>
+    </div>
+    <div class="bar-center">
+      <div class="controls">
+        <button class="ctrl-btn shuffle-hide" id="shuffleBtn" title="Shuffle (S)"><img src="icons/shuffle.png" alt="Shuffle" class="ctrl-img"></button>
+        <button class="ctrl-btn" id="prevBtn" title="Previous (←)"><img src="icons/rewind-button.png" alt="Previous"></button>
+        <button class="play-btn" id="playBtn" title="Play/Pause (Space)"><img src="icons/play.png" alt="Play" class="play-icon"></button>
+        <button class="ctrl-btn" id="nextBtn" title="Next (→)"><img src="icons/forward-button.png" alt="Next"></button>
+        <button class="ctrl-btn repeat-hide" id="repeatBtn" title="Repeat (R)"><img src="icons/repeat.png" alt="Repeat" class="ctrl-img"></button>
+      </div>
+      <div class="progress-wrap">
+        <span class="time-label" id="currentTime">0:00</span>
+        <input type="range" id="progressBar" min="0" max="100" value="0" step="0.1">
+        <span class="time-label right" id="totalTime">0:00</span>
+      </div>
+    </div>
+    <div class="bar-right">
+      <img src="icons/volume full.png" alt="Volume" id="volIcon" class="vol-icon">
+      <input type="range" id="volumeBar" min="0" max="100" value="70">
+    </div>
+  </footer>
+</div>
+
+<!-- Recently Played Modal -->
+<div class="overlay" id="recentOverlay" onclick="closeModalOutside(event,'recentOverlay')">
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">🕐 Recently Played</div>
+      <button class="close-btn" onclick="closeModal('recentOverlay')">✕</button>
+    </div>
+    <div id="recentList"></div>
+  </div>
+</div>
+
+<audio id="audioPlayer"></audio>
+
+
+
+<script src="script.js"></script>
+</body>
+</html>
