@@ -490,26 +490,5 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-// Install App Prompt
-let deferredPrompt;
 
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-
-  // Create install button dynamically
-  let installBtn = document.createElement("button");
-  installBtn.innerText = "Install App";
-  installBtn.style.position = "fixed";
-  installBtn.style.bottom = "20px";
-  installBtn.style.right = "20px";
-  installBtn.style.padding = "10px 15px";
-  installBtn.style.background = "#000";
-  installBtn.style.color = "#fff";
-  installBtn.style.border = "none";
-  installBtn.style.borderRadius = "8px";
-  installBtn.style.cursor = "pointer";
-  installBtn.style.zIndex = "9999";
-
-  document.body.appendChild(installBtn);
 
